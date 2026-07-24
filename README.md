@@ -8,13 +8,9 @@ This project simulates an end-to-end analytics engineering workflow using Postgr
 Project Structure:
 
 /data → raw and processed datasets
-
 /sql → transformation logic (staging, intermediate, marts)
-
 /docs → project documentation and methodology
-
 /images → diagrams and data models
 
 Status:
-
 Project setup in progress — defining business problem and sourcing dataset.
