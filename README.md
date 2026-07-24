@@ -1,5 +1,5 @@
 # SaaS-Analytics-Engineering
-Project Title:
+# Project Title:
 SaaS Analytics Engineering Project (PostgreSQL)
 
 Objective:
