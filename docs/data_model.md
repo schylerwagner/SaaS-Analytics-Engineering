@@ -2,8 +2,8 @@ Table Overview:
  - Accounts
  	- Grain: 1 row per unique account 
 	- Primary Key: account_id 
-	- Role: Core business entity representing a customer
- 	- Relationships (Cardinality):
+	- Role: Core business entity representing a customer.
+ 	- Relationships:
      	- One account > many subscriptions
      	- One account > many support tickets
      	- One account > zero or more churn events
@@ -12,33 +12,42 @@ Table Overview:
 	- Grain: 1 row per unique subscription 
 	- Primary Key: subscription_id
 	- Foreign Key: account_id > Accounts
-	- Role: Revenue-generating entity tied to a customer
+	- Role: Revenue-generating entity tied to a customer.
 	- Relationships:
      	- Many subscriptions > one account
      	- One subscription > many feature usage events
-     	- One subscription > zero or one churn event 
+     	- *Note: Although a subscription contains a churn_flag, the dataset models detailed churn events separately at the account level rather than linking them directly to a subscription. 
 
  - Feature Usage
-	- Grain: 1 row per usage event 
+	- Grain: 1 row per unique feature usage event
+ 	- Primary Key: usage_id 	 
 	- Foreign Key: subscription_id > Subscriptions
-	- Role: Behavioral telemetry capturing product engagement
+	- Role: Behavioral telemetry capturing customer engagement with the SaaS platform.
    	- Relationships:
     	- Many usage events > one subscription 
 
  - Support Tickets
-	- Grain: 1 row per ticket 
+	- Grain: 1 row per unique support ticket
+ 	- Primary Key: ticket_id  
 	- Foreign Key: account_id > Accounts
-	- Role: Customer support interaction data
+	- Role: Customer support interactions and service quality metrics.
 	- Relationships:
-    	- Many tickets > one account
+    	- Many support tickets > one account
 
  - Churn Events
-	- Grain: 1 row per churn event
- 	- Primary key:
-	- Foreign Key: subscription_id > Subscriptions
-   	- Role: Marks the termination (or churn moment) of a subscription lifecycle
+	- Grain: 1 row per unique churn event
+ 	- Primary Key: churn_event_id
+	- Foreign Key: account_id > Accounts
+   	- Role: Records churn events associated with an account, including churn timing, reason, financial impact, and reactivation history.
   	- Relationships:
-    	- Many churn events → one or many subscriptions
+    	- Many churn events → one account
+
+Relationship Summary:
+- Parent Table:
+	- Accounts
+	- Accounts
+	- Accounts
+	- Subscriptions
 
 Business Interpretation:
  - What defines an “active customer”
