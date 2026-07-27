@@ -42,33 +42,41 @@ Table Overview:
   	- Relationships:
     	- Many churn events → one account
 
-Relationship Summary:
-- Parent Table:
-	- Accounts
-	- Accounts
-	- Accounts
-	- Subscriptions
+Relationship Summary: (Parent Table > Child Table > Cardinality)
+- Accounts > Subscriptions > 1 to Many
+- Accounts > Support Tickets > 1 to Many
+- Accounts > Churn Events > 1 to Zero or Many
+- Subscriptions > Feature Usage > 1 to Many
 
 Business Interpretation:
- - What defines an “active customer”
-	- Accounts identified as still using the product. Exclusion of logged churn activity. 
-   		- accounts.churn_flag = FALSE
-    	- subscriptions.end_date = NULL
+- What defines an “active customer”
+	- An active customer is an account with at least one active subscription.
+ 	- Based on the dataset, an active subscription would generally have: 
+   		- subscriptions.end_date IS NULL
     	- subscriptions.churn_flag = FALSE
-    	- churn_events.churn_date = NULL
+     - The accounts.churn_flag provides an account-level indicator that the account has experienced churn at some point, but subscription records provide the current subscription lifecycle status.
 
- - What churn means in this dataset
-  	- Accounts that have canceled their subscription.
+- What does churn represent?
+	- Within this dataset, churn is modeled as an account-level business event.
+ 	- Each row in churn_events records a churn occurrence for an account and includes additional business context such as:
+		- churn date
+		- churn reason
+		- refund amount
+		- preceding upgrade/downgrade activity
+		- reactivation indicator
+		- customer feedback
+	- Because each event has a unique churn_event_id and includes an is_reactivation flag, the dataset supports multiple churn/reactivation cycles for a single account.
     
- - What “engagement” likely represents
-  	- Usage metrics related to an accounts feature activity. Such as usage days, usage duration and features used.
+- What does engagement represent?
+	- Engagement represents how customers interact with the SaaS platform through subscription activity.
+	- Behavior is measured using feature-level telemetry such as:
+		- feature usage frequency
+		- usage duration
+		- feature adoption
+		- beta feature participation
+		- application errors
+	- These metrics can later be aggregated to evaluate product adoption, customer health, and potential churn risk.
 
-Considerations:
- - Can an account have multiple subscriptions at the same time?
-  	- Yes
-
- - Is churn tied to account or subscription level?
-  	- Churn is modeled at the subscription level to accurately capture multiple lifecycle events per account.
-
- - What would define a “power user” using feature usage?
-  	- Account with above average feature usage metrics
+Modeling Considerations
+- During initial modeling, one observation was that churn could also reasonably be represented at the subscription level, since subscriptions already contain lifecycle attributes such as start_date, end_date, and churn_flag.
+- However, the synthetic dataset intentionally models detailed churn history at the account level, as documented by the source schema. This project preserves the dataset's intended relational design to maintain referential integrity while recognizing that production SaaS platforms may implement subscription-level churn models depending on business requirements.
