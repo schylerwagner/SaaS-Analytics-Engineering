@@ -1,6 +1,6 @@
 Table Overview:
  - Accounts
-	• Grain: 1 row per unique account 
+	- Grain: 1 row per unique account 
 	• Primary Key: account_id 
 	• Role: Core business entity representing a customer
   • Relationships (Cardinality):
