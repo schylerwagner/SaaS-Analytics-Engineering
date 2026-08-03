@@ -55,3 +55,22 @@ Every support ticket is closed. The README didn't explicitly state this would be
 
 This tells us something about the dataset:
 - It represents historical support activity rather than a live operational system with open tickets.
+
+## Business Rule Validation
+
+Assumptions:
+1. Does ARR equal MRR × 12?
+2. Can a subscription end before it starts?
+3. Do churned subscriptions always have an end date?
+4. Do active subscriptions have a null end date?
+5. Are there negative revenue values?
+6. Are seat counts reasonable?
+
+| Validation | Invalid Records | Result |
+|------------|---------------:|--------|
+| ARR = MRR × 12 |0|Passed|
+| End Date ≥ Start Date |0|Passed|
+| Churned Subscription Has End Date |0|Passed|
+| Active Subscription Has Null End Date |0|Passed|
+| Negative Revenue |0|Passed|
+| Positive Seat Count |0|Passed|
