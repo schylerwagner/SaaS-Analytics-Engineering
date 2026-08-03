@@ -19,7 +19,7 @@ Table Overview:
      	- *Note: Although a subscription contains a churn_flag, the dataset models detailed churn events separately at the account level rather than linking them directly to a subscription. 
 
  - Feature Usage
-	- Grain: 1 row per unique feature usage event
+	- Grain: One row per source record in feature_usage.csv
  	- Primary Key: usage_id 	 
 	- Foreign Key: subscription_id > Subscriptions
 	- Role: Behavioral telemetry capturing customer engagement with the SaaS platform.
