@@ -14,8 +14,8 @@
 
 | Table | Expected Primary Key | Duplicate Records | Result |
 |--------|----------------------|------------------:|--------|
-| Accounts | account_id | | |
-| Subscriptions | subscription_id | | |
-| Feature Usage | usage_id* | | |
-| Support Tickets | ticket_id | | |
-| Churn Events | churn_event_id | | |
+| Accounts | account_id |0| |
+| Subscriptions | subscription_id |0| |
+| Feature Usage | usage_id* |21| |
+| Support Tickets | ticket_id |0| |
+| Churn Events | churn_event_id |0| |
