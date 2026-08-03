@@ -42,6 +42,8 @@ This check verifies the dataset’s claim that all 'account_id' and 'subscriptio
 | Support Tickets | `satisfaction_score` |825| Yes | Null indicates no customer response |
 | Churn Events | `feedback_text` |148| Yes | Feedback is optional |
 
+## Null Value Interpretation
+
 | Table | Column | Null Count | Interpretation |
 |---|---:|---|
 | Subscriptions | end_date | 4,514 | Expected. Approximately 90% of subscriptions are still active, so they have no end date. |
