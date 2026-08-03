@@ -21,3 +21,14 @@
 | Churn Events | churn_event_id |0|Passed|
 
 \* **Feature Usage:** The source documentation describes `usage_id` as representing a unique usage event. During ingestion, 21 duplicate `usage_id` values were identified in the source CSV. To preserve source fidelity, the primary key constraint was removed and a surrogate key (`raw_usage_row_id`) was introduced. Duplicate investigation will continue during subsequent data validation phases.
+
+## Referential Integrity Validation
+
+| Relationship | Orphaned Records | Result |
+|---|---:|---|
+| Subscriptions → Accounts |0|Passed|
+| Feature Usage → Subscriptions |0|Passed|
+| Support Tickets → Accounts |0|Passed|
+| Churn Events → Accounts |0|Passed|
+
+This check verifies the dataset’s claim that all 'account_id' and 'subscription_id' relationships are referentially complete.
