@@ -1,13 +1,13 @@
-Business Overview
+# Business Understanding
 
-Business Problem
+## Project Objective
 
-Business Objectives
+## Business Overview
 
-Business Process
+## Business Problem
 
-Key Business Questions
+## Business Objectives
 
-Definitions
+## Key Business Questions
 
-Assumptions
+## Business Definitions
