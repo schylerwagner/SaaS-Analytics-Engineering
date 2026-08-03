@@ -32,3 +32,24 @@
 | Churn Events → Accounts |0|Passed|
 
 This check verifies the dataset’s claim that all 'account_id' and 'subscription_id' relationships are referentially complete.
+
+## Null Value Profiling
+
+| Table | Column | Null Count | Expected? | Notes |
+|---|---|---:|---|---|
+| Subscriptions | `end_date` |4514| Yes | Active subscriptions may not have an end date |
+| Support Tickets | `closed_at` |0| Possibly | May represent unresolved tickets |
+| Support Tickets | `satisfaction_score` |825| Yes | Null indicates no customer response |
+| Churn Events | `feedback_text` |148| Yes | Feedback is optional |
+
+| Table | Column | Null Count | Interpretation |
+|---|---:|---|
+| Subscriptions | end_date | 4,514 | Expected. Approximately 90% of subscriptions are still active, so they have no end date. |
+| Support Tickets | closed_at | 0 | Every support ticket has been resolved in this dataset. This means there are no open tickets to account for in downstream analytics. |
+| Support Tickets | satisfaction_score | 825 | Expected. Not every customer completed the post-support survey. |
+| Churn Events | feedback_text | 148 | Expected. Customer feedback was optional. |
+
+Every support ticket is closed. The README didn't explicitly state this would be the case—it only defined the closed_at field. 
+
+This tells us something about the dataset:
+- It represents historical support activity rather than a live operational system with open tickets.
