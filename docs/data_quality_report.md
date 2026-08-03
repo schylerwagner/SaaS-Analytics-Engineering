@@ -4,8 +4,8 @@
 
 | Table | Row Count |
 |---|---:|
-| accounts | |
-| subscriptions | |
-| feature_usage | |
-| support_tickets | |
-| churn_events | |
+| accounts |500|
+| subscriptions |5000|
+| feature_usage |25000|
+| support_tickets |2000|
+| churn_events |600|
