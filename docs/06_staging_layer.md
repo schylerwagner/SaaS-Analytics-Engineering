@@ -56,6 +56,7 @@ One row per account.
 
 The grain of the source table was preserved while applying lightweight standardization and a single derived attribute for downstream analytical use.
 
+
 ## staging.subscriptions
 
 ### Source
@@ -91,6 +92,7 @@ One row per subscription.
 
 The staging model standardizes subscription lifecycle information while preserving one record per subscription.
 
+
 ## staging.feature_usage
 
 ### Source
@@ -124,6 +126,7 @@ One row per usage event.
 ### Notes
 
 A surrogate key was retained to uniquely identify every source record while preserving the original `usage_id` for traceability.
+
 
 ## staging.support_tickets
 
@@ -159,6 +162,7 @@ One row per support ticket.
 ### Notes
 
 The staging model standardizes support attributes while preserving ticket-level detail.
+
 
 ## staging.churn_events
 
