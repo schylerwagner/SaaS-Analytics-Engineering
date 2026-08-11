@@ -1,4 +1,6 @@
---This dimension gives downstream reporting a clean customer-level table for segmentation by industry, geography, acquisition source, initial plan, and trial origin.
+-- This dimension gives downstream reporting a clean customer-level table
+-- for segmentation by industry, geography, acquisition source,
+-- initial plan, and trial origin.
 
 DROP TABLE IF EXISTS analytics.dim_account;
 
