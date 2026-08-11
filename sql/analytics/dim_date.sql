@@ -9,11 +9,11 @@ SELECT
     EXTRACT(YEAR FROM calendar_date)::INTEGER AS year,
     EXTRACT(QUARTER FROM calendar_date)::INTEGER AS quarter,
     EXTRACT(MONTH FROM calendar_date)::INTEGER AS month_number,
-    TO_CHAR(calendar_date, 'Month') AS month_name,
+    TO_CHAR(calendar_date, 'FMMonth') AS month_name,
     TO_CHAR(calendar_date, 'YYYY-MM') AS year_month,
     EXTRACT(DAY FROM calendar_date)::INTEGER AS day_of_month,
     EXTRACT(ISODOW FROM calendar_date)::INTEGER AS day_of_week_number,
-    TO_CHAR(calendar_date, 'Day') AS day_of_week_name
+    TO_CHAR(calendar_date, 'FMDay') AS day_of_week_name
 FROM GENERATE_SERIES(
     DATE '2023-01-01',
     DATE '2024-12-31',
