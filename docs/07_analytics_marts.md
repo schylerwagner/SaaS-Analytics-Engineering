@@ -208,3 +208,56 @@ As a result:
 - Historical revenue changes caused by mid-cycle upgrades or downgrades cannot be reconstructed precisely.
 
 These limitations are intentionally preserved rather than estimating unsupported historical values.
+
+---
+
+## Final Executive Summary Mart
+
+### Model
+
+`analytics.mart_executive_summary`
+
+### Grain
+
+One row per calendar month.
+
+The mart contains 24 monthly records covering January 2023 through December 2024.
+
+### Included KPIs
+
+- Month-End Active Customers
+- New Accounts
+- Accounts with Churn Activity
+- Beginning Active Subscriptions
+- Churned Subscriptions
+- Subscription Churn Rate
+- New Trial Subscriptions
+- Average Daily Usage Count
+- Average Daily Usage Hours
+- Average Resolution Time
+- Average Satisfaction Score
+- Month-End MRR
+- Month-End ARR
+- New MRR
+- Churned MRR
+
+### Validation
+
+The executive mart was validated against independently calculated KPI results before being considered complete.
+
+Validation confirmed:
+
+- 24 monthly records
+- Unique month-level grain
+- 500 total new accounts
+- 486 total churned subscriptions
+- 778 total new trial subscriptions
+- $1,179,139 total churned MRR
+- No unexpected null values
+- January 2023 subscription churn rate is intentionally null because there were no active subscriptions at the beginning of the month
+
+### Result
+
+The analytics layer successfully consolidates customer, subscription, churn, product usage, support, and recurring revenue metrics into a business-ready monthly reporting model.
+
+The mart can serve as the primary source for executive-level reporting while the underlying fact and dimension tables remain available for deeper analysis.
