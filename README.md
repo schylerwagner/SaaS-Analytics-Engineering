@@ -117,7 +117,7 @@ Detailed project documentation can be found in the `/docs` directory.
 | 04 | Raw Data Layer |
 | 05 | Data Validation |
 | 06 | Staging Layer |
-| 07 | Analytics Layer |
+| 07 | Analytics Marts |
 
 ---
 
