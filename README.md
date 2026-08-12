@@ -52,8 +52,12 @@ staging
      ▼
 analytics
      │
-     ▼
-Business Metrics / Dashboards
+     ├── Dimensions
+     ├── Fact Tables
+     └── Executive Summary Mart
+             │
+             ▼
+      Reporting / Dashboards
 ```
 
 ---
@@ -88,20 +92,16 @@ data/
 - Raw layer implementation
 - Data quality validation
 - Staging layer implementation
+- Analytics dimensions and fact tables
+- Executive summary mart
 - SQL project organization
 - Technical documentation
 
-### In Progress
+### Planned / Optional
 
-- Analytics data modeling
-
-### Planned
-
-- Analytics schema
-- Business metrics
-- Star schema
-- Executive reporting models
-- Architecture diagrams
+- Executive dashboard or visualization
+- Architecture and data model diagrams
+- Additional analytical drill-downs
 
 ---
 
@@ -137,6 +137,8 @@ This project is designed to demonstrate practical Analytics Engineering skills, 
 
 ## Project Status
 
-**Current Phase:** Analytics Data Modeling
+**Current Phase:** Analytics Layer Complete
 
-The raw and staging layers have been completed and validated. The next phase focuses on building analytical models and business-ready datasets.
+The raw, staging, and analytics layers have been implemented and validated. The project now contains reusable dimensions, fact tables, and a monthly executive summary mart supporting customer, subscription, churn, product usage, support, and recurring revenue analysis.
+
+The remaining work is optional presentation-layer enhancement, such as a lightweight executive dashboard and architecture diagrams.
