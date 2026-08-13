@@ -27,7 +27,7 @@ No business logic, aggregations, filtering, or analytical transformations are pe
 The project ingests five source CSV files representing operational SaaS business data.
 
 | Source File | Destination Table |
-|--------------|------------------|
+| --- | --- |
 | accounts.csv | raw.accounts |
 | subscriptions.csv | raw.subscriptions |
 | feature_usage.csv | raw.feature_usage |
@@ -144,7 +144,7 @@ Stores customer churn events and related business context.
 
 # PostgreSQL Data Type Decisions
 
-Several PostgreSQL data types were intentionally selected to preserve the source data while supporting downstream analytical workloads.
+Several PostgreSQL data types were selected to preserve the source representation while supporting downstream analytical workloads.
 
 Examples include:
 
@@ -153,7 +153,11 @@ Examples include:
 - `TIMESTAMP` for event timestamps
 - `BOOLEAN` for binary indicators
 - `INTEGER` for counts
-- `NUMERIC` for currency values
+- Floating-point or numeric types where required to preserve the source representation
+
+For recurring revenue fields such as `mrr_amount` and `arr_amount`, the raw layer retained the source-oriented numeric implementation used during ingestion.
+
+In a production financial model, exact `NUMERIC` / `DECIMAL` types would generally be preferred over floating-point types for currency to avoid potential precision issues.
 
 ---
 
@@ -167,7 +171,7 @@ To preserve every source record:
 
 - the primary key constraint on `usage_id` was removed;
 - a surrogate key (`raw_usage_row_id`) was introduced;
-- duplicate investigation was deferred to the data validation phase.
+- the original `usage_id` was retained as a source business identifier.
 
 ---
 
@@ -175,9 +179,9 @@ To preserve every source record:
 
 The dataset documentation describes `satisfaction_score` as an integer rating.
 
-During ingestion, the source CSV stored values using decimal formatting (for example, `4.0`).
+During ingestion, the source CSV stored values using decimal formatting, for example `4.0`.
 
-To preserve source fidelity, the PostgreSQL column was defined as `NUMERIC(3,1)` rather than `INTEGER`.
+To preserve source fidelity, the raw PostgreSQL column was defined using a numeric representation compatible with the source values rather than forcing an integer conversion during ingestion.
 
 ---
 
