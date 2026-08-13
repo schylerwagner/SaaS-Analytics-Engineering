@@ -53,3 +53,5 @@ The final analytics layer provides reusable dimensions, fact tables, and a month
 ## Project Architecture
 
 ![SaaS Analytics Engineering Architecture](images/project_architecture.png)
+
+For detailed table relationships and analytical modeling, see the [Data Model Documentation](docs/03_data_model.md).
