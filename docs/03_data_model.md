@@ -7,7 +7,13 @@ The RavenStack SaaS dataset models the core operational entities involved in man
 This document defines the logical data model used throughout the project, including table grain, primary and foreign keys, relationship cardinality, and modeling considerations.
 
 ---
+## Analytics Data Model
 
+The analytics layer uses dimensional modeling to organize account, subscription, product usage, support, churn, and recurring revenue data for downstream analysis.
+
+![SaaS Churn Analytics Data Model](../images/analytics_data_model.png)
+
+---
 # Table Overview
 
 ## Accounts
