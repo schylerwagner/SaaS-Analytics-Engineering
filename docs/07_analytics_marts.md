@@ -84,6 +84,14 @@ This metric represents churn activity within an account and should not be interp
 
 ---
 
+### Beginning Active Subscriptions
+
+Number of subscriptions active at the beginning of the reporting month.
+
+This metric provides the denominator used to calculate monthly Subscription Churn Rate.
+
+---
+
 ### Churned Subscriptions
 
 Number of subscriptions where `churn_flag = TRUE` and `end_date` occurs during the reporting month.
@@ -116,7 +124,7 @@ Average total `usage_count` recorded per calendar day during the reporting month
 
 Average total `usage_duration_secs` recorded per calendar day during the reporting month.
 
-The executive mart may expose this metric in hours for readability while preserving seconds in the underlying fact table.
+The executive mart exposes this metric as average daily usage hours for improved readability while preserving seconds in the underlying fact table.
 
 ---
 
@@ -156,7 +164,7 @@ Sum of `mrr_amount` associated with subscriptions whose `start_date` occurs duri
 
 ### Churned MRR
 
-Sum of `mrr_amount` associated with subscriptions whose `end_date` occurs during the reporting month.
+Sum of `mrr_amount` associated with subscriptions where `churn_flag = TRUE` and `end_date` occurs during the reporting month.
 
 ---
 
@@ -190,9 +198,9 @@ Because the timing of these events cannot be determined, the ratio is excluded f
 
 The validated overall ratio is:
 
-- Upgraded subscriptions: 529
-- Downgraded subscriptions: 218
-- Upgrade-to-downgrade ratio: 2.43
+- Upgraded subscriptions: **529**
+- Downgraded subscriptions: **218**
+- Upgrade-to-downgrade ratio: **2.43**
 
 ---
 
@@ -204,7 +212,7 @@ As a result:
 
 - Month-End MRR and ARR use the available subscription-level recurring revenue values.
 - New MRR is based on subscription start dates.
-- Churned MRR is based on subscription end dates.
+- Churned MRR is based on subscription end dates for churned subscriptions.
 - Historical revenue changes caused by mid-cycle upgrades or downgrades cannot be reconstructed precisely.
 
 These limitations are intentionally preserved rather than estimating unsupported historical values.
@@ -221,7 +229,7 @@ These limitations are intentionally preserved rather than estimating unsupported
 
 One row per calendar month.
 
-The mart contains 24 monthly records covering January 2023 through December 2024.
+The mart contains **24 monthly records covering January 2023 through December 2024**.
 
 ### Included KPIs
 
@@ -247,14 +255,16 @@ The executive mart was validated against independently calculated KPI results be
 
 Validation confirmed:
 
-- 24 monthly records
+- **24** monthly records
 - Unique month-level grain
-- 500 total new accounts
-- 486 total churned subscriptions
-- 778 total new trial subscriptions
-- $1,179,139 total churned MRR
+- **500** total new accounts
+- **486** total churned subscriptions
+- **778** total new trial subscriptions
+- **$1,179,139** total churned MRR
 - No unexpected null values
-- January 2023 subscription churn rate is intentionally null because there were no active subscriptions at the beginning of the month
+- January 2023 Subscription Churn Rate is intentionally null because there were no active subscriptions at the beginning of the month
+
+Final mart metrics were reconciled against independently calculated KPI results before the mart was considered ready for reporting use.
 
 ### Result
 
