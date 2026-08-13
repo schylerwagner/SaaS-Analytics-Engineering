@@ -2,11 +2,14 @@
 
 ## Overview
 
-The RavenStack SaaS dataset models the core operational entities involved in managing customer subscriptions, product usage, customer support, and churn events. The relational model captures the relationships between these business processes while maintaining normalized transactional data suitable for downstream analytical modeling.
+The RavenStack SaaS dataset models the core operational entities involved in managing customer subscriptions, product usage, customer support, and churn events.
+
+The relational model captures the relationships between these business processes while maintaining normalized transactional data suitable for downstream analytical modeling.
 
 This document defines the logical data model used throughout the project, including table grain, primary and foreign keys, relationship cardinality, and modeling considerations.
 
 ---
+
 ## Analytics Data Model
 
 The analytics layer uses dimensional modeling to organize account, subscription, product usage, support, churn, and recurring revenue data for downstream analysis.
@@ -14,6 +17,7 @@ The analytics layer uses dimensional modeling to organize account, subscription,
 ![SaaS Churn Analytics Data Model](../images/analytics_data_model.png)
 
 ---
+
 # Table Overview
 
 ## Accounts
@@ -146,7 +150,7 @@ Records churn events associated with an account, including churn timing, reason,
 # Relationship Summary
 
 | Parent | Child | Cardinality |
-|---------|-------|------------|
+| --- | --- | --- |
 | Accounts | Subscriptions | One-to-Many |
 | Accounts | Support Tickets | One-to-Many |
 | Accounts | Churn Events | One-to-Zero-or-Many |
@@ -158,9 +162,18 @@ Records churn events associated with an account, including churn timing, reason,
 
 ## Churn Modeling
 
-During the initial modeling phase, an alternative design was considered where churn would be represented at the subscription level. Since subscriptions already contain lifecycle attributes (`start_date`, `end_date`, and `churn_flag`), this approach would accurately represent individual subscription lifecycles.
+During the initial modeling phase, an alternative design was considered where detailed churn would be represented entirely at the subscription level.
 
-However, the source dataset intentionally models detailed churn history at the account level through the `churn_events` table. To preserve source fidelity and maintain consistency with the published schema, this project retains the dataset's original relational design.
+Subscriptions already contain lifecycle attributes such as `start_date`, `end_date`, and `churn_flag`, which provide the appropriate basis for measuring subscription termination.
+
+However, the source dataset separately models detailed churn-event history at the account level through the `churn_events` table.
+
+To preserve source fidelity, the project retains both concepts:
+
+- subscription lifecycle termination is measured using subscription-level fields;
+- detailed churn-event context remains associated with accounts through `churn_events`.
+
+This distinction became important when developing downstream churn KPIs because an account with churn activity may still maintain other active subscriptions.
 
 ---
 
@@ -172,15 +185,21 @@ To preserve every source record:
 
 - the original `usage_id` was retained as a business identifier;
 - a surrogate key (`raw_usage_row_id`) was introduced within PostgreSQL;
-- duplicate investigation was documented as part of the raw data validation process.
+- both identifiers were retained through downstream staging and analytics models.
 
 ---
 
-# Future Enhancements
+# Analytics Implementation
 
-Future phases of this project will extend the logical model into:
+The source-oriented logical model was extended downstream into a dimensional analytics layer consisting of:
 
-- Staging models
-- Analytical fact tables
-- Dimension tables
-- Star schema design
+- `analytics.dim_account`
+- `analytics.dim_subscription`
+- `analytics.dim_date`
+- `analytics.fact_feature_usage`
+- `analytics.fact_support_tickets`
+- `analytics.fact_churn`
+- `analytics.fact_subscription_revenue`
+- `analytics.mart_executive_summary`
+
+The analytical model preserves the relevant source relationships while reorganizing the data around reusable business entities, measurable events, and executive-level reporting requirements.
