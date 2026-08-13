@@ -67,7 +67,7 @@ Contains reusable dimensions, fact tables, and analytical outputs designed for r
 
 The final workflow follows:
 
-`CSV Source Data → Raw → Staging → Analytics Dimensions/Facts → Executive Summary Mart`
+**CSV Source Data → Raw → Staging → Analytics Dimensions/Facts → Executive Summary Mart**
 
 ---
 
@@ -153,3 +153,14 @@ sql/
     staging/
     analytics/
     marts/
+```
+
+This structure allows the project methodology, SQL implementation, source documentation, and visual architecture to be reviewed independently while remaining part of the same workflow.
+
+---
+
+## Final Deliverable
+
+The completed project provides a documented and validated analytics engineering pipeline that transforms operational SaaS data into reusable analytical models and an executive reporting mart.
+
+The core analytics engineering workflow is complete. Potential future enhancements include a BI visualization layer, additional analytical drill-downs, Python-based automation, or implementation of the transformation workflow using dbt.
