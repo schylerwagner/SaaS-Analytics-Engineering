@@ -52,24 +52,4 @@ The final analytics layer provides reusable dimensions, fact tables, and a month
 
 ## Project Architecture
 
-```text
-CSV Files
-     │
-     ▼
-raw
-     │
-     ▼
-staging
-     │
-     ▼
-analytics
-     │
-     ├── Dimensions
-     ├── Fact Tables
-     └── Executive Summary Mart
-             │
-             ▼
-      Reporting / Dashboards
-The raw, staging, and analytics layers have been implemented and validated. The project now contains reusable dimensions, fact tables, and a monthly executive summary mart supporting customer, subscription, churn, product usage, support, and recurring revenue analysis.
-
-The remaining work is optional presentation-layer enhancement, such as a lightweight executive dashboard and architecture diagrams.
+![SaaS Analytics Engineering Architecture](images/project_architecture.png)
