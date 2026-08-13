@@ -15,9 +15,9 @@ The staging layer serves as the foundation for the analytics layer by providing 
 The staging layer follows several core design principles:
 
 - Preserve the grain of each source table.
-- Maintain one-to-one traceability back to the raw layer.
+- Maintain traceability back to the raw layer.
 - Apply lightweight standardization and data cleansing.
-- Avoid aggregations and business metrics.
+- Avoid aggregations and reporting metrics.
 - Prepare data for downstream analytical modeling.
 
 ---
@@ -44,7 +44,6 @@ One row per account.
 - Standardized `country` to uppercase.
 - Standardized `referral_source` to lowercase.
 - Standardized `plan_tier` using proper case.
-- Added `account_tenure_years`.
 
 ### Validation
 
@@ -54,8 +53,13 @@ One row per account.
 
 ### Notes
 
-The grain of the source table was preserved while applying lightweight standardization and a single derived attribute for downstream analytical use.
+The grain of the source table was preserved while applying lightweight standardization.
 
+An `account_tenure_years` attribute was initially considered during staging development but was removed during code review because it depended on `CURRENT_DATE` and represented dynamic analytical logic rather than source standardization.
+
+Tenure can instead be calculated downstream when analytically required.
+
+---
 
 ## staging.subscriptions
 
@@ -83,15 +87,16 @@ One row per subscription.
 
 ### Validation
 
-- Source rows: 5,000
-- Staging rows: 5,000
-- Duplicate `subscription_id`: 0
-- Invalid `subscription_status`: 0
+- Source rows: **5,000**
+- Staging rows: **5,000**
+- Duplicate `subscription_id`: **0**
+- Invalid `subscription_status`: **0**
 
 ### Notes
 
 The staging model standardizes subscription lifecycle information while preserving one record per subscription.
 
+---
 
 ## staging.feature_usage
 
@@ -101,11 +106,15 @@ The staging model standardizes subscription lifecycle information while preservi
 
 ### Grain
 
-One row per usage event.
+One row per source usage record.
 
 ### Primary Key
 
 `raw_usage_row_id`
+
+### Business Identifier
+
+`usage_id`
 
 ### Foreign Key
 
@@ -115,18 +124,20 @@ One row per usage event.
 
 - Trimmed whitespace from `feature_name`.
 - Preserved `usage_id` as the source business identifier.
+- Retained `raw_usage_row_id` as the unique technical row identifier.
 
 ### Validation
 
-- Source rows: 25,000
-- Staging rows: 25,000
-- Duplicate surrogate keys: 0
-- Orphaned subscriptions: 0
+- Source rows: **25,000**
+- Staging rows: **25,000**
+- Duplicate surrogate keys: **0**
+- Orphaned subscriptions: **0**
 
 ### Notes
 
 A surrogate key was retained to uniquely identify every source record while preserving the original `usage_id` for traceability.
 
+---
 
 ## staging.support_tickets
 
@@ -149,20 +160,21 @@ One row per support ticket.
 ### Standardization & Transformations
 
 - Standardized `priority` to lowercase.
-- Converted `satisfaction_score` to integer.
+- Converted `satisfaction_score` to integer where populated.
 - Added `ticket_status`.
 
 ### Validation
 
-- Source rows: 2,000
-- Staging rows: 2,000
-- Duplicate `ticket_id`: 0
-- Invalid satisfaction scores: 0
+- Source rows: **2,000**
+- Staging rows: **2,000**
+- Duplicate `ticket_id`: **0**
+- Invalid satisfaction scores: **0**
 
 ### Notes
 
 The staging model standardizes support attributes while preserving ticket-level detail.
 
+---
 
 ## staging.churn_events
 
@@ -189,10 +201,10 @@ One row per churn event.
 
 ### Validation
 
-- Source rows: 600
-- Staging rows: 600
-- Duplicate `churn_event_id`: 0
-- Orphaned accounts: 0
+- Source rows: **600**
+- Staging rows: **600**
+- Duplicate `churn_event_id`: **0**
+- Orphaned accounts: **0**
 
 ### Notes
 
