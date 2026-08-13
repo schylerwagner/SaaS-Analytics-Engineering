@@ -23,6 +23,17 @@ Raw source files are not stored directly in this repository. The PostgreSQL tabl
 | Churn Events | 600 |
 | **Total** | **33,100** |
 
+## Dataset Source
+
+This project uses the publicly available **SaaS Subscription & Churn Analytics Dataset** published by **Rivalytics** on Kaggle.
+
+Dataset:  
+https://www.kaggle.com/datasets/rivalytics/saas-subscription-and-churn-analytics-dataset
+
+The dataset is synthetic and serves as the source data for this analytics engineering portfolio project. All downstream PostgreSQL database design, data quality validation, transformation logic, analytical modeling, KPI definitions, and reporting marts were developed as part of the project.
+
+## Related Documentation
+
 See [`../docs/03_data_model.md`](../docs/03_data_model.md) for the source data model and relationships.
 
 See [`../docs/04_raw_data_layer.md`](../docs/04_raw_data_layer.md) for raw-layer implementation details.
